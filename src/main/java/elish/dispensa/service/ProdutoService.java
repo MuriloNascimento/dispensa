@@ -1,31 +1,46 @@
 package elish.dispensa.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import org.springframework.stereotype.Service;
 
 import elish.dispensa.dao.ProdutoDAO;
 import elish.dispensa.entidades.Produto;
-import elish.dispensa.exceptions.ServiceExeption;
 import elish.dispensa.exceptions.DaoException;
+import elish.dispensa.exceptions.ServiceExeption;
 
 @Service
 public class ProdutoService {
-	
-	@Autowired
-	private ProdutoDAO pdao; 
-	
-	public void salvar(Produto produto) throws ServiceExeption{
-		
-		if(produto.getNome()==null){
-			throw new ServiceExeption("O usuario está sem nome");
+
+	@Inject
+	private ProdutoDAO pdao;
+
+	public void salvar(Produto produto) throws ServiceExeption {
+
+		if (produto.getNome() == null) {
+			throw new ServiceExeption("O produto está sem nome");
 		}
-		
+
 		try {
 			pdao.salvar(produto);
 		} catch (DaoException e) {
-			throw new ServiceExeption("Não foi possivel salvar",e);
+			throw new ServiceExeption("Não foi possivel salvar", e);
 		}
-		
+
 	}
-	
+
+	public void excluir(Produto produto) throws ServiceExeption {
+		pdao.excluir(produto);
+	}
+
+	public List<Produto> buscarTodos() {
+		return pdao.buscartodos();
+	}
+
+	public Produto buscarPorId(int id) {
+		return pdao.buscarPorId(id);
+	}
+
 }

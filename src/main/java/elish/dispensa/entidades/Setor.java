@@ -1,32 +1,34 @@
 package elish.dispensa.entidades;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
-public class Produto {
-	
+public class Setor {
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
+	
 	private String nome;
 	
-	@JoinColumn
-	@ManyToOne
-	private Setor setor;
-	
+	@OneToMany(mappedBy="setor",fetch=FetchType.LAZY)
+	private List<Produto> produtos;
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + id;
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -35,33 +37,34 @@ public class Produto {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Produto other = (Produto) obj;
+		Setor other = (Setor) obj;
 		if (id != other.id)
-			return false;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
 			return false;
 		return true;
 	}
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Setor getSetor() {
-		return setor;
+
+	public List<Produto> getProdutos() {
+		return produtos;
 	}
-	public void setSetor(Setor setor) {
-		this.setor = setor;
-	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}	
 	
 }
