@@ -1,0 +1,35 @@
+<ui:composition template="template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="corpo">
+
+			<p:panel header="Cadastro de Setor">
+				
+				
+					<h:form>
+						<p:messages></p:messages>
+						<p:panelGrid columns="1" id="pgProduto">
+							<h:outputText value="Nome do Setor:" />
+							<p:inputText value="#{setorBean.setor.nome}" required="true">
+								<f:validateLength minimum="6" maximum="20"></f:validateLength>
+							</p:inputText>
+							<p:commandButton value="Cadastrar Setor" action="#{setorBean.salvar}" update="@form"/>
+						</p:panelGrid>
+					</h:form>
+				
+			</p:panel>
+			<p:panel header="Lista de Setores">
+				<ul>
+					<ui:repeat value="#{setorBean.setores}" var="setor">
+						<li><h:outputText value=" #{setor.id}: #{setor.nome}" /></li>
+					</ui:repeat>
+				</ul>
+			</p:panel>
+			
+	</ui:define>
+
+</ui:composition>

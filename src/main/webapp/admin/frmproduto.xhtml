@@ -1,93 +1,76 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition template="template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-<h:head>
-	
-</h:head>
+	<ui:define name="corpo">
 
-<body>
+		<h:form>
 
-	<p:layout style="min-width:400px;min-height:800px;">
-	
-			<p:layoutUnit position="west" resizable="true" size="100" minSize="40" maxSize="200">
-		        West
-		    </p:layoutUnit>
+			<p:panel header="Cadastro de Produto">
 
-			<p:layoutUnit position="center">
+				<p:messages></p:messages>
 
-				<h:form>
+				<p:panelGrid columns="2" id="pgProduto">
 
-					<p:panel header="Cadastro de Produto">
+					<h:outputText value="Nome"></h:outputText>
+					<p:inputText value="#{produtoBean.produto.nome}"></p:inputText>
 
-						<p:messages></p:messages>
+					<h:outputText value="Setor"></h:outputText>
 
-						<p:panelGrid columns="2" id="pgProduto">
+					<p:selectOneMenu id="console" value="#{produtoBean.produto.setor}"
+						converter="#{setorConvertion}">
+						<f:selectItems value="#{setorBean.setores}" var="setor"
+							itemLabel="#{setor.nome}"></f:selectItems>
+					</p:selectOneMenu>
 
-							<h:outputText value="Nome"></h:outputText>
-							<p:inputText value="#{produtoBean.produto.nome}"></p:inputText>
+				</p:panelGrid>
 
-							<h:outputText value="Setor"></h:outputText>
-							<p:selectOneMenu id="console"
-								value="#{produtoBean.produto.setor}"
-								converter="#{setorConvertion}">
-								<f:selectItems value="#{setorBean.setores}" var="setor"
-									itemLabel="#{setor.nome}"></f:selectItems>
-							</p:selectOneMenu>
+				<p:commandButton value="salvar" action="#{produtoBean.salvar}"
+					update="@form"></p:commandButton>
 
-						</p:panelGrid>
+			</p:panel>
 
-						<p:commandButton value="salvar" action="#{produtoBean.salvar}"
-							update="@form"></p:commandButton>
+			<p:panel header="Lista de Produtos">
+				<p:dataTable value="#{produtoBean.produtos}" var="produto" rows="6"
+					paginator="true" paginatorAlwaysVisible="true">
+					<p:column headerText="Id">
+						<h:outputText value="#{produto.id}"></h:outputText>
+					</p:column>
+					<p:column headerText="Nome">
+						<h:outputText value="#{produto.nome}"></h:outputText>
+					</p:column>
+					<p:column headerText="Setor">
+						<h:outputText value="#{produto.setor.nome}"></h:outputText>
+					</p:column>
+					<p:column headerText="Ação">
+						<p:commandButton icon="ui-icon-trash" title="excluir"
+							update="@form" oncomplete="confirmacao.show()">
+							<f:setPropertyActionListener target="#{produtoBean.produto}"
+								value="#{produto}"></f:setPropertyActionListener>
+						</p:commandButton>
+						<p:commandButton icon="ui-icon-pencil" title="editar"
+							update="@form">
+							<f:setPropertyActionListener target="#{produtoBean.produto}"
+								value="#{produto}"></f:setPropertyActionListener>
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
 
-					</p:panel>
+				<p:confirmDialog widgetVar="confirmacao"
+					message="Deseja excluir este produto?" severity="alert"
+					closable="true">
+					<p:commandButton value="sim"
+						actionListener="#{produtoBean.excluir}" onclick="hide"
+						update="@form" process="@this"></p:commandButton>
+					<p:commandButton value="nao" onclick="hide"></p:commandButton>
+				</p:confirmDialog>
+			</p:panel>
 
-					<p:panel header="Lista de Produtos">
-						<p:dataTable value="#{produtoBean.produtos}" var="produto"
-							rows="6" paginator="true" paginatorAlwaysVisible="true">
-							<p:column headerText="Id">
-								<h:outputText value="#{produto.id}"></h:outputText>
-							</p:column>
-							<p:column headerText="Nome">
-								<h:outputText value="#{produto.nome}"></h:outputText>
-							</p:column>
-							<p:column headerText="Setor">
-								<h:outputText value="#{produto.setor.nome}"></h:outputText>
-							</p:column>
-							<p:column headerText="Ação">
-								<p:commandButton icon="ui-icon-trash" title="excluir"
-									update="@form" oncomplete="confirmacao.show()">
-									<f:setPropertyActionListener target="#{produtoBean.produto}"
-										value="#{produto}"></f:setPropertyActionListener>
-								</p:commandButton>
-								<p:commandButton icon="ui-icon-pencil" title="editar"
-									update="@form">
-									<f:setPropertyActionListener target="#{produtoBean.produto}"
-										value="#{produto}"></f:setPropertyActionListener>
-								</p:commandButton>
-							</p:column>
-						</p:dataTable>
+		</h:form>
 
-						<p:confirmDialog widgetVar="confirmacao"
-							message="Deseja excluir este produto?" severity="alert"
-							closable="true">
-							<p:commandButton value="sim"
-								actionListener="#{produtoBean.excluir}" onclick="hide"
-								update="@form" process="@this"></p:commandButton>
-							<p:commandButton value="nao" onclick="hide"></p:commandButton>
-						</p:confirmDialog>
-					</p:panel>
+	</ui:define>
 
-				</h:form>
-
-			</p:layoutUnit>
-
-	</p:layout>
-
-</body>
-
-</html>
+</ui:composition>

@@ -16,7 +16,7 @@ import elish.dispensa.exceptions.DaoException;
 public class ProdutoDAO {
 	
 	@PersistenceContext
-	EntityManager em;
+	protected EntityManager em;
 	
 	@Transactional
 	public void salvar(Produto produto) throws DaoException{

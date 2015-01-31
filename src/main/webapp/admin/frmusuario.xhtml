@@ -1,43 +1,39 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition template="template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	>
+	xmlns:p="http://primefaces.org/ui">
 
-	<h:head>
-	
-	</h:head>
+	<ui:define name="corpo">
 
-	<body>
-		
 		<h:form>
-		
+
 			<p:panel header="Cadastro de Usuario">
-				
+
 				<p:messages></p:messages>
-				
+
 				<p:panelGrid columns="2" id="pgUsuario">
-				
+
 					<h:outputText value="Nome"></h:outputText>
 					<p:inputText value="#{usuarioBean.usuario.nome}"></p:inputText>
-					
+
 					<h:outputText value="Login"></h:outputText>
 					<p:inputText value="#{usuarioBean.usuario.login}"></p:inputText>
-					
+
 					<h:outputText value="Senha"></h:outputText>
 					<p:password value="#{usuarioBean.usuario.senha}"></p:password>
-				
+
 				</p:panelGrid>
-				
-				<p:commandButton value="salvar" action="#{usuarioBean.salvar}" update="@form"></p:commandButton>
-				
+
+				<p:commandButton value="salvar" action="#{usuarioBean.salvar}"
+					update="@form"></p:commandButton>
+
 			</p:panel>
-			
+
 			<p:panel header="Lista de usuarios">
-				<p:dataTable value="#{usuarioBean.usuarios}" var="usuario" rows="6" paginator="true" paginatorAlwaysVisible="true">
+				<p:dataTable value="#{usuarioBean.usuarios}" var="usuario" rows="6"
+					paginator="true" paginatorAlwaysVisible="true">
 					<p:column headerText="Id">
 						<h:outputText value="#{usuario.id}"></h:outputText>
 					</p:column>
@@ -59,15 +55,19 @@
 						</p:commandButton>
 					</p:column>
 				</p:dataTable>
-				
-				<p:confirmDialog widgetVar="confirmacao" message="Deseja excluir este usuario?" severity="alert" closable="true">
-					<p:commandButton value="sim" actionListener="#{usuarioBean.excluir}" onclick="hide" update="@form" process="@this"></p:commandButton>
+
+				<p:confirmDialog widgetVar="confirmacao"
+					message="Deseja excluir este usuario?" severity="alert"
+					closable="true">
+					<p:commandButton value="sim"
+						actionListener="#{usuarioBean.excluir}" onclick="hide"
+						update="@form" process="@this"></p:commandButton>
 					<p:commandButton value="nao" onclick="hide"></p:commandButton>
 				</p:confirmDialog>
 			</p:panel>
-		
-		</h:form>
-		
-	</body>
 
-</html>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

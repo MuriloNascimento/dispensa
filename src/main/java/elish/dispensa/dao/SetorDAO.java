@@ -7,8 +7,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import elish.dispensa.entidades.Setor;
+import elish.dispensa.exceptions.DaoException;
 
 @Repository
 public class SetorDAO {
@@ -24,5 +26,17 @@ public class SetorDAO {
 	
 	public Setor buscarPorId(int id){
 		return em.find(Setor.class, id);
+	}
+	
+	@Transactional
+	public void salvar(Setor setor) throws DaoException{
+		try {
+			em.merge(setor);
+		} catch (Exception e) {
+			throw new DaoException("Não foi possivel salvar",e);
+		} finally {
+			em.close();
+		}
+		
 	}
 }

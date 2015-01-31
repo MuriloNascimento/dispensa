@@ -1,0 +1,29 @@
+<ui:composition template="template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="corpo">
+
+			<p:panel header="Cadastro de Setor">
+			
+				<h:form>
+					<h:outputLabel value="Preço:" for="preco"></h:outputLabel>
+					<h:inputText id="preco" valueChangeListener="#{testeBean.alteraCor}"></h:inputText>
+					<h:outputText value="#{testeBean.cor}"></h:outputText>
+				</h:form>
+				
+			</p:panel>
+			<p:panel header="Lista de Setores">
+				<ul>
+					<ui:repeat value="#{setorBean.setores}" var="setor">
+						<li><h:outputText value=" #{setor.id}: #{setor.nome}" /></li>
+					</ui:repeat>
+				</ul>
+			</p:panel>
+			
+	</ui:define>
+
+</ui:composition>

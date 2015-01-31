@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import elish.dispensa.dao.SetorDAO;
 import elish.dispensa.entidades.Setor;
+import elish.dispensa.exceptions.DaoException;
+import elish.dispensa.exceptions.ServiceExeption;
 
 @Service
 public class SetoreService {
@@ -21,6 +23,20 @@ public class SetoreService {
 	
 	public Setor buscarPorId(int id){
 		return sdao.buscarPorId(id);
+	}
+	
+	public void salvar(Setor setor) throws ServiceExeption {
+
+		if (setor.getNome() == null) {
+			throw new ServiceExeption("O setor está sem nome");
+		}
+
+		try {
+			sdao.salvar(setor);
+		} catch (DaoException e) {
+			throw new ServiceExeption("Não foi possivel salvar", e);
+		}
+
 	}
 	
 	

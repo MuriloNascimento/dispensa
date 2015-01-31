@@ -1,0 +1,9 @@
+@CHARSET "UTF-8";
+
+*{font-size:14px;}
+body{background-color: #f0f0f0;}
+body > div{margin-bottom:10px;}
+body > form > div{margin-bottom:10px;}
+
+.topo{height: 200px; background-color: gray; border: 0;}
+.rodape{text-align: center;}
