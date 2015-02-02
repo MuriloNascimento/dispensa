@@ -51,7 +51,6 @@ public class UsuarioBean {
 		}
 	}
 	
-	
 	public List<Usuario> getUsuarios() {
 		return usuarios;
 	}

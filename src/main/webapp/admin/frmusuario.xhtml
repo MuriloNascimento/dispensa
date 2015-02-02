@@ -56,12 +56,8 @@
 					</p:column>
 				</p:dataTable>
 
-				<p:confirmDialog widgetVar="confirmacao"
-					message="Deseja excluir este usuario?" severity="alert"
-					closable="true">
-					<p:commandButton value="sim"
-						actionListener="#{usuarioBean.excluir}" onclick="hide"
-						update="@form" process="@this"></p:commandButton>
+				<p:confirmDialog widgetVar="confirmacao" message="Deseja excluir este usuario?" severity="alert" closable="true">
+					<p:commandButton value="sim" actionListener="#{usuarioBean.excluir}" onclick="hide" update="@form" process="@this"></p:commandButton>
 					<p:commandButton value="nao" onclick="hide"></p:commandButton>
 				</p:confirmDialog>
 			</p:panel>

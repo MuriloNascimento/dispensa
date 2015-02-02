@@ -39,4 +39,15 @@ public class SetorDAO {
 		}
 		
 	}
+	
+	@Transactional
+	public void excluir(Setor setor) throws DaoException{
+		try {
+			em.remove(setor);
+		} catch (Exception e) {
+			throw new DaoException("Não foi possivel excluir",e);
+		} finally {
+			em.close();
+		}
+	}
 }

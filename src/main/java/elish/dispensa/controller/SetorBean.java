@@ -20,7 +20,6 @@ public class SetorBean {
 	
 	private Setor setor = new Setor();
 	private List<Setor> setores;
-	private String titulo;
 
 	@Inject
 	private SetoreService ss;
@@ -28,7 +27,6 @@ public class SetorBean {
 	@PostConstruct
 	public void init(){
 		setores = ss.buscarTodos();
-		titulo = "Cadastro de setor";
 	}
 	
 	public void salvar(){
@@ -37,6 +35,17 @@ public class SetorBean {
 			setor = new Setor();
 			setores = ss.buscarTodos();
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Salvo com sucesso",null));
+		} catch (ServiceExeption e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Não foi possivel salvar " + e.getMessage(),null));
+		}
+	}
+	
+	public void excluir(){
+		try {
+			ss.excluir(setor);
+			setores = ss.buscarTodos();
+			setor = new Setor();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Excluido com sucesso",null));
 		} catch (ServiceExeption e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Não foi possivel salvar " + e.getMessage(),null));
 		}
@@ -64,14 +73,6 @@ public class SetorBean {
 
 	public void setSs(SetoreService ss) {
 		this.ss = ss;
-	}
-
-	public String getTitulo() {
-		return titulo;
-	}
-
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
 	}
 
 }

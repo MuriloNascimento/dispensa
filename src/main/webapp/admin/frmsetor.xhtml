@@ -7,29 +7,49 @@
 
 	<ui:define name="corpo">
 
+		<h:form>
+
 			<p:panel header="Cadastro de Setor">
-				
-				
-					<h:form>
-						<p:messages></p:messages>
-						<p:panelGrid columns="1" id="pgProduto">
-							<h:outputText value="Nome do Setor:" />
-							<p:inputText value="#{setorBean.setor.nome}" required="true">
-								<f:validateLength minimum="6" maximum="20"></f:validateLength>
-							</p:inputText>
-							<p:commandButton value="Cadastrar Setor" action="#{setorBean.salvar}" update="@form"/>
-						</p:panelGrid>
-					</h:form>
-				
+
+				<p:messages></p:messages>
+
+				<p:panelGrid columns="2" id="pgSetor">
+
+					<h:outputText value="Nome"></h:outputText>
+					<p:inputText value="#{setorBean.setor.nome}"></p:inputText>
+
+				</p:panelGrid>
+
+				<p:commandButton value="salvar" action="#{setorBean.salvar}" update="@form"></p:commandButton>
+
 			</p:panel>
+
 			<p:panel header="Lista de Setores">
-				<ul>
-					<ui:repeat value="#{setorBean.setores}" var="setor">
-						<li><h:outputText value=" #{setor.id}: #{setor.nome}" /></li>
-					</ui:repeat>
-				</ul>
+				<p:dataTable value="#{setorBean.setores}" var="setor" rows="6" paginator="true" paginatorAlwaysVisible="true">
+					<p:column headerText="Id">
+						<h:outputText value="#{setor.id}"></h:outputText>
+					</p:column>
+					<p:column headerText="Nome">
+						<h:outputText value="#{setor.nome}"></h:outputText>
+					</p:column>
+					<p:column headerText="Ação">
+						<p:commandButton icon="ui-icon-trash" title="excluir" update="@form" oncomplete="confirmacao.show()">
+							<f:setPropertyActionListener target="#{setorBean.setor}" value="#{setor}"></f:setPropertyActionListener>
+						</p:commandButton>
+						<p:commandButton icon="ui-icon-pencil" title="editar" update="@form">
+							<f:setPropertyActionListener target="#{setorBean.setor}" value="#{setor}"></f:setPropertyActionListener>
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+
+				<p:confirmDialog widgetVar="confirmacao" message="Deseja excluir este setor?" severity="alert" closable="true">
+					<p:commandButton value="sim" actionListener="#{setorBean.excluir}" onclick="hide" update="@form" process="@this"></p:commandButton>
+					<p:commandButton value="nao" onclick="hide"></p:commandButton>
+				</p:confirmDialog>
 			</p:panel>
-			
+
+		</h:form>
+
 	</ui:define>
 
 </ui:composition>

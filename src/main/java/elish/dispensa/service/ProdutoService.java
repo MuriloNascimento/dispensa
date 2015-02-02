@@ -32,7 +32,8 @@ public class ProdutoService {
 	}
 
 	public void excluir(Produto produto) throws ServiceExeption {
-		pdao.excluir(produto);
+		Produto ptmp = pdao.buscarPorId(produto.getId());
+		pdao.excluir(ptmp);
 	}
 
 	public List<Produto> buscarTodos() {

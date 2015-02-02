@@ -38,7 +38,15 @@ public class SetoreService {
 		}
 
 	}
-	
-	
+
+	public void excluir(Setor setor) throws ServiceExeption {
+		try {
+			Setor stmp = sdao.buscarPorId(setor.getId());
+			sdao.excluir(stmp);
+		} catch (DaoException e) {
+			throw new ServiceExeption("Não foi possivel excluir", e);
+		}
+		
+	}
 
 }

@@ -13,15 +13,10 @@
 					<h:outputLabel value="Preço:" for="preco"></h:outputLabel>
 					<h:inputText id="preco" valueChangeListener="#{testeBean.alteraCor}"></h:inputText>
 					<h:outputText value="#{testeBean.cor}"></h:outputText>
+					<p:commandButton value="ajax"  update="@form">
+					</p:commandButton>
 				</h:form>
 				
-			</p:panel>
-			<p:panel header="Lista de Setores">
-				<ul>
-					<ui:repeat value="#{setorBean.setores}" var="setor">
-						<li><h:outputText value=" #{setor.id}: #{setor.nome}" /></li>
-					</ui:repeat>
-				</ul>
 			</p:panel>
 			
 	</ui:define>

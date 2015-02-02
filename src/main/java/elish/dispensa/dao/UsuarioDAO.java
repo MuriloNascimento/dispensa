@@ -13,6 +13,7 @@ import elish.dispensa.entidades.Usuario;
 import elish.dispensa.exceptions.DaoException;
 
 @Repository
+@SuppressWarnings("unchecked")
 public class UsuarioDAO {
 	
 	@PersistenceContext
@@ -36,7 +37,7 @@ public class UsuarioDAO {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
+	
 	public List<Usuario> buscartodos(){
 		
 		Query consulta = em.createQuery("select u from Usuario u");
@@ -45,6 +46,13 @@ public class UsuarioDAO {
 	
 	public Usuario buscarPorId(int id){
 		return em.find(Usuario.class, id);
+	}
+	
+	public List<Usuario> buscarPorLoginSenha(Usuario usuario){
+		Query consulta = em.createQuery("Select u from Usuario u where u.login=:login and u.Senha=:senha");
+		consulta.setParameter("login",usuario.getLogin());
+		consulta.setParameter("senha",usuario.getSenha());
+		return consulta.getResultList();
 	}
 
 }

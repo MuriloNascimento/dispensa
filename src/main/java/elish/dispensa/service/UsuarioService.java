@@ -51,4 +51,10 @@ public class UsuarioService {
 		return udao.buscarPorId(id);
 	}
 
+	public List<Usuario> autenticar(Usuario usuario) {
+		
+		return udao.buscarPorLoginSenha(usuario);
+		
+	}
+
 }
